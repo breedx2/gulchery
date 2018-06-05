@@ -1,4 +1,5 @@
 'use strict';
+const _ = require('lodash');
 
 const parseString = require('xml2js').parseString;
 
@@ -19,7 +20,9 @@ function extractXml(html){
 }
 
 function munge(json){
-  return json;
+  return json.markers.marker
+    .map( x => x.$)
+    .map(x => _.pickBy(x, _.identity));
 }
 
 module.exports = parse;
